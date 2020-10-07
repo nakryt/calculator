@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
-import { buttons } from "./src/buttons";
+import { buttons, DIVIDE, MINUS, MULTIPLY } from "./src/buttons";
 import Calculator, { TActionType } from "./src/calculator";
 
 type TProps = {};
@@ -34,7 +34,24 @@ export default class App extends Component<TProps, TState> {
       <View style={styles.container}>
         <View style={styles.calculation}>
           <Text style={styles.calculationText}>
-            {previousOperand && operation && previousOperand + operation}
+            {previousOperand &&
+              operation &&
+              previousOperand +
+                operation.replace(
+                  /[*-\/]/,
+                  (match, p1, p2, p3, offset, string) => {
+                    switch (match) {
+                      case "*":
+                        return MULTIPLY;
+                      case "-":
+                        return MINUS;
+                      case "/":
+                        return DIVIDE;
+                      default:
+                        return "";
+                    }
+                  }
+                )}
           </Text>
         </View>
         <View style={styles.result}>

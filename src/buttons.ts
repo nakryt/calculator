@@ -1,19 +1,9 @@
-import { CSSProperties } from "react";
-import { TStyles, styles } from "../App";
 import { TActionType } from "./calculator";
 
-const DIVIDE = String.fromCharCode(247);
-const MINUS = String.fromCharCode(8211);
-const PLUS_MINUS = `+/${MINUS}`;
-const MULTIPLY = String.fromCharCode(215);
-
-type TButton = {
-  text: string;
-  style: Partial<TStyles>;
-  type: TActionType;
-};
-
-// const btn:TButton = { text: "AC", style: styles.gray, type: TActionType.clearAll }
+export const DIVIDE = String.fromCharCode(247);
+export const MINUS = String.fromCharCode(8211);
+export const PLUS_MINUS = `+/${MINUS}`;
+export const MULTIPLY = String.fromCharCode(215);
 
 export const buttons = [
   [
