@@ -27,7 +27,7 @@ export default class Calculator {
   percent: boolean;
   memory: number;
   result: number;
-  isEqualPressed: boolean;
+  isNewValue: boolean;
 
   constructor() {
     this.previousOperand = "";
@@ -36,7 +36,7 @@ export default class Calculator {
     this.percent = false;
     this.memory = 0;
     this.result = 0;
-    this.isEqualPressed = false;
+    this.isNewValue = false;
 
     this.appendNumber = this.appendNumber.bind(this);
     this.setOperation = this.setOperation.bind(this);
@@ -60,19 +60,19 @@ export default class Calculator {
   }
 
   appendNumber(number: string) {
-    if (this.currentOperand.length >= 10 && !this.isEqualPressed) return;
+    if (this.currentOperand.length >= 10 && !this.isNewValue) return;
     if (number === ".") {
       if (this.currentOperand.includes(".")) return;
-      if (this.currentOperand === "" || this.isEqualPressed) {
+      if (this.currentOperand === "" || this.isNewValue) {
         this.currentOperand = "0";
       }
       this.currentOperand += number;
     } else {
-      this.currentOperand = this.isEqualPressed
+      this.currentOperand = this.isNewValue
         ? number
         : this.currentOperand + number;
     }
-    this.isEqualPressed = false;
+    this.isNewValue = false;
   }
 
   setOperation(operation: TOperations) {
@@ -121,7 +121,7 @@ export default class Calculator {
     }
     this.currentOperand = this.format(String(this.result));
     this.operation = undefined;
-    this.isEqualPressed = true;
+    this.isNewValue = true;
   }
 
   dispatch(action: TAction) {
@@ -140,9 +140,11 @@ export default class Calculator {
         break;
       case TActionType.memoryPlus:
         this.memory += Number(this.currentOperand);
+        this.isNewValue = true;
         break;
       case TActionType.memoryMinus:
         this.memory -= Number(this.currentOperand);
+        this.isNewValue = true;
         break;
       case TActionType.plus:
         this.setOperation("+");

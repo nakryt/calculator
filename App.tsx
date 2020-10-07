@@ -29,7 +29,7 @@ export default class App extends Component<TProps, TState> {
     }
   }
   render() {
-    const { previousOperand, result, operation } = this.state.calc;
+    const { previousOperand, operation } = this.state.calc;
     return (
       <View style={styles.container}>
         <View style={styles.calculation}>
@@ -38,7 +38,9 @@ export default class App extends Component<TProps, TState> {
           </Text>
         </View>
         <View style={styles.result}>
-          <Text style={styles.resultText}>{this.state.current}</Text>
+          <Text style={styles.resultText}>
+            {this.state.current.length ? this.state.current : "0"}
+          </Text>
         </View>
 
         <View style={styles.buttons}>
@@ -69,6 +71,7 @@ export default class App extends Component<TProps, TState> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 25,
     backgroundColor: "#000",
   },
   calculation: {
